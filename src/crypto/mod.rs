@@ -7,9 +7,9 @@
 
 #[cfg(feature = "openssl")]
 pub mod openssl;
-
-#[cfg(feature = "rcrypto")]
 pub mod rcrypto;
+
+use rand_core::{CryptoRng, RngCore};
 
 /// A fixed-size hash
 pub trait Digest: Sized {
@@ -30,7 +30,7 @@ pub trait Digest: Sized {
 pub trait PrivateKey: Sized {
     type Error: core::fmt::Debug;
 
-    fn generate(exponent: u8) -> Result<Self, Self::Error>;
+    fn generate<R: RngCore + CryptoRng>(rng: &mut R, exponent: u8) -> Result<Self, Self::Error>;
     fn from_pem(pem: &str) -> Result<Self, Self::Error>;
     fn from_der(der: &[u8]) -> Result<Self, Self::Error>;
     fn sign(&self, author: &[u8], body: &[u8]) -> Result<SigData, Self::Error>;

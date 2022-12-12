@@ -2,7 +2,7 @@
 
 use num_integer::Integer;
 use num_traits::ToPrimitive;
-use rand::thread_rng;
+use rand_core::{CryptoRng, RngCore};
 use rsa::{pkcs1::DecodeRsaPrivateKey, BigUint, PaddingScheme, PublicKeyParts, RsaPrivateKey};
 use sha2::{Digest, Sha256};
 
@@ -48,10 +48,9 @@ impl RS256PrivateKey {
 impl super::PrivateKey for RS256PrivateKey {
     type Error = rsa::errors::Error;
 
-    fn generate(exponent: u8) -> Result<Self, Self::Error> {
-        let mut rng = thread_rng();
+    fn generate<R: RngCore + CryptoRng>(rng: &mut R, exponent: u8) -> Result<Self, Self::Error> {
         let exp = BigUint::from(exponent);
-        let key = RsaPrivateKey::new_with_exp(&mut rng, 384 * 8, &exp)?;
+        let key = RsaPrivateKey::new_with_exp(rng, 384 * 8, &exp)?;
         Ok(Self::new(key))
     }
 
