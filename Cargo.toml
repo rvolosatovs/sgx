@@ -22,7 +22,7 @@ is-it-maintained-issue-resolution = { repository = "enarx/sgx" }
 is-it-maintained-open-issues = { repository = "enarx/sgx" }
 
 [features]
-rcrypto = ["rand", "rsa", "sha2", "num-integer", "num-traits"]
+rcrypto = ["rand", "rsa", "sha2"]
 
 [dependencies]
 x86_64 = { version = "^0.14.6", default-features = false }
@@ -30,8 +30,8 @@ openssl = { version = "^0.10.36", optional = true }
 bitflags = "^1.3.2"
 
 # Used by the rcrypto feature (see above).
-num-integer = { version = "0.1.39", default-features = false, optional = true }
-num-traits = { version = "0.2.9", default-features = false, features = ["libm"], optional = true }
+num-integer = { version = "0.1.39", default-features = false }
+num-traits = { version = "0.2.9", default-features = false, features = ["libm"] }
 rand = { version = "^0.8.4", optional = true }
 sha2 = { version = "0.10.2", features = ["oid"], optional = true }
 rsa = { version = "^0.7.1", optional = true }
