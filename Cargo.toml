@@ -30,8 +30,8 @@ openssl = { version = "^0.10.36", optional = true }
 bitflags = "^1.3.2"
 
 # Used by the rcrypto feature (see above).
-num-integer = { version = "^0.1.44", optional = true }
-num-traits = { version = "^0.2.14", optional = true }
+num-integer = { version = "0.1.39", default-features = false, optional = true }
+num-traits = { version = "0.2.9", default-features = false, features = ["libm"], optional = true }
 rand = { version = "^0.8.4", optional = true }
 sha2 = { version = "0.10.2", features = ["oid"], optional = true }
 rsa = { version = "^0.7.1", optional = true }
